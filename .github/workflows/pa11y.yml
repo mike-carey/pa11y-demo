@@ -31,7 +31,11 @@ jobs:
       run: npm run build --if-present
     - name: Start up http server
       run: npm start
-    - name: Run tests
-      run: npm test
+
+    - name: Run Pa11y
+      run: |
+        npm install -g pa11y
+        pa11y http://localhost:8080
+
     - name: Cleanup
       run: npm run stop
