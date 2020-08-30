@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+source_up
+
+# Sets the port to test on, note that TEST_PORT+1 must also be available
+# export TEST_PORT=30000

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+###
+# @env RANDOM integer{0..1000} Adds to the start_from argument to create randomness
+##
+function get-random-port() {
+  local flags=$-
+  local check="placeholder"
+  local start_from=${1:-8080}
+  local max_attempts=$((${2:-10})) # Force integer
+
+  local port=$(( ( "$RANDOM" % 1000 ) + $start_from - 1 ))
+  local count=0
+  while [ -n "${check}" ]; do
+    ((port++))
+
+    # Allow the grep command to fail
+    set +e
+    check=$(lsof -i -P -n | grep LISTEN | grep ":${port}")
+    set -$flags
+
+    if [ $((count++)) -ge $max_attempts ] && [ ! -n "${check}" ]; then
+      echo "[ERROR] Reached max attempts: $max_attempts. Giving up" >&2
+      return 1
+    fi
+  done
+
+  echo $port
+}
+
+if [ ${BASH_SOURCE[0]} = "$0" ]; then
+  set -euo pipefail
+
+  get-random-port "${@:-}"
+  exit $?
+fi

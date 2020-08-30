@@ -1,0 +1,6 @@
+[submodule "pwa-examples"]
+	path = pwa-examples
+	url = https://github.com/mdn/pwa-examples.git
+[submodule "tests/helpers/print"]
+	path = tests/helpers/print
+	url = https://github.com/mike-carey/bats-print
