@@ -31,6 +31,8 @@ jobs:
       run: npm run build --if-present
     - name: Start up http server
       run: npm start
+      env:
+        EXAMPLE: a2hs
 
     - name: Run Pa11y
       run: |
