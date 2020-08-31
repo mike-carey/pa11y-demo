@@ -35,6 +35,7 @@ jobs:
         EXAMPLE: a2hs
 
     - name: Run Pa11y
+      continue-on-error: true
       run: |
         npm install -g pa11y
         pa11y http://localhost:8080
